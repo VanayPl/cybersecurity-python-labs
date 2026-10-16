@@ -9,8 +9,12 @@ from __future__ import annotations
 
 import argparse
 import logging
+import os
 import sys
 from pathlib import Path
+
+# Додавання кореня репозиторію до sys.path для підтримки прямого запуску файлу
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 
 from labs.lab02.task1 import run_demo
 from labs.lab02.task2 import run_scanner
@@ -88,8 +92,8 @@ def main(argv: list[str] | None = None) -> None:
         if exit_code != 0:
             sys.exit(exit_code)
     else:
-        parser.print_help()
-        sys.exit(0)
+        # Якщо файл запущено без аргументів (наприклад, кнопкою Run у VS Code)
+        run_demo()
 
 
 if __name__ == "__main__":
