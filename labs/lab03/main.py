@@ -16,6 +16,7 @@ if _ROOT_DIR not in sys.path:
 
 import uvicorn
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 
 from labs.lab03.config import SUBJECT_AREA, SUBJECT_DESCRIPTION, VALUE_UNIT
 from labs.lab03.database import initialize_database
@@ -47,6 +48,12 @@ app = FastAPI(
 # Підключення модульних маршрутизаторів
 app.include_router(categories_router)
 app.include_router(records_router)
+
+
+@app.get("/", include_in_schema=False)
+def root() -> RedirectResponse:
+    """Автоматичний редирект з головної сторінки на інтерактивну документацію Swagger UI."""
+    return RedirectResponse(url="/docs")
 
 
 @app.get(
