@@ -7,6 +7,11 @@ import sys
 from contextlib import closing
 from pathlib import Path
 
+# Додавання кореня репозиторію до sys.path для прямого запуску у VS Code
+_ROOT_DIR = str(Path(__file__).resolve().parent.parent.parent)
+if _ROOT_DIR not in sys.path:
+    sys.path.insert(0, _ROOT_DIR)
+
 from pydantic import ValidationError
 
 from labs.lab03.database import get_connection, initialize_database

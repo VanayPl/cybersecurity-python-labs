@@ -1,8 +1,14 @@
-"""Робота з базою даних SQLite та виконання SQL-скриптів."""
+"""Підключення до бази даних SQLite та виконання DDL-схеми."""
 
 import sqlite3
+import sys
 from contextlib import closing
 from pathlib import Path
+
+# Додавання кореня репозиторію до sys.path для прямого запуску у VS Code
+_ROOT_DIR = str(Path(__file__).resolve().parent.parent.parent)
+if _ROOT_DIR not in sys.path:
+    sys.path.insert(0, _ROOT_DIR)
 
 BASE_DIR = Path(__file__).resolve().parent
 DATABASE_PATH = BASE_DIR / "data" / "lab3.sqlite3"

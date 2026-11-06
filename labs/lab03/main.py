@@ -4,9 +4,17 @@
 Одиниця вимірювання: score (0.0 - 10.0).
 """
 
+import sys
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
+from pathlib import Path
 
+# Додавання кореня репозиторію до sys.path для підтримки прямого запуску у VS Code
+_ROOT_DIR = str(Path(__file__).resolve().parent.parent.parent)
+if _ROOT_DIR not in sys.path:
+    sys.path.insert(0, _ROOT_DIR)
+
+import uvicorn
 from fastapi import FastAPI
 
 from labs.lab03.config import SUBJECT_AREA, SUBJECT_DESCRIPTION, VALUE_UNIT
@@ -65,3 +73,7 @@ def get_student_info() -> dict[str, str | int]:
         "group_name": student.GROUP_NAME,
         "variant_number": student.VARIANT_NUMBER,
     }
+
+
+if __name__ == "__main__":
+    uvicorn.run("labs.lab03.main:app", host="127.0.0.1", port=8000, reload=True)
